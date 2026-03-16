@@ -1,0 +1,31 @@
+{{!-- all events template --}}
+
+{{#if message}}
+    <section class="alert {{status}}">
+        <p>{{message}}</p>
+    </section>
+{{/if}}
+
+{{#if events}}
+    <section class="event_list_container">
+        {{#each events}}
+            <section class="event_card" data-id="{{EventID}}">
+                {{!-- <h3><a href="/events/{{EventID}}">{{Name}}</a></h3> --}}
+                {{!-- <p><strong>Location: </strong> {{Location}}</p>
+                <p><strong>Start: </strong> {{StartTime}}</p>
+                <p><strong>End: </strong> {{EndTime}}</p> --}}
+                <h3 class="ajax-trigger">{{Name}}</h3>
+
+                <section class="extra-info" id="info-{{EventID}}"></section>
+
+                <p><a href="/events/{{EventID}}">View Details, Photos and Organizers    </a></p>
+            </section>
+            <hr>
+        {{/each}}
+    </section>
+{{else}}
+    <p class = "empty_list">No events were created</p>
+    <p><a href="/admin/create">Create Event</a></p>
+{{/if}}
+
+<script src="/js/list-ajax.js"></script>

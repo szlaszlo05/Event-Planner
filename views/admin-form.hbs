@@ -1,0 +1,19 @@
+
+{{#if message}}
+    <section class="alert {{status}}">
+        <p>{{message}}</p>
+    </section>
+{{/if}}
+
+<h2>Create New Event</h2>
+<form action="/api/events" method="post">
+        <label for="nameInput">Event Name</label>
+        <input type="text" name="name" id="nameInput" required > <br>
+        <label for="locationInput">Location</label>
+        <input type="text" name="location" id="locationInput" required > <br>
+        <label for="startTimeInput">Start Time</label>
+        <input type="datetime-local" name="startTime" id="startTimeInput" required > <br>
+        <label for="endTimeInput">End Time</label>
+        <input type="datetime-local" name="endTime" id="endTimeInput" required > <br>
+        <button type="submit">Create Event</button>
+</form>

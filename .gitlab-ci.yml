@@ -1,0 +1,12 @@
+check:
+  image: node:20.10.0-alpine
+  script:
+    - npm i
+    - if [ -n "$(find public -type f -name '*.html' -print)" ]; then npm run lint-html; fi
+    - npm run lint
+  cache:
+    - key:
+        files:
+          - package-lock.json
+      paths:
+        - node_modules/

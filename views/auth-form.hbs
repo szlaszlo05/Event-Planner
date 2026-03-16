@@ -1,0 +1,49 @@
+<section class="auth-container">
+    {{!-- login --}}
+    <section class="auth-box login-box">
+        <h2>Login</h2>
+        <form action="/auth/login" method="POST">
+            <section class="form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" name="username" required placeholder="Enter your username">
+            </section>
+
+            <section class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" required placeholder="Enter your password">
+            </section>
+
+            <button type="submit" class="btn-primary full-width">Sign In</button>
+        </form>
+    </section>
+
+    {{!-- <section class="divider">
+        <span>OR</span>
+    </section> --}}
+
+    {{!-- register --}}
+    <section class="auth-box register-box">
+        <h2>Create Account</h2>
+        <form action="/auth/register" method="POST">
+            <section class="form-group">
+                <label for="reg-username">Choose Username</label>
+                <input type="text" id="reg-username" name="username" required placeholder="New username">
+            </section>
+
+            <section class="form-group">
+                <label for="reg-password">Choose Password</label>
+                <input type="password" id="reg-password" name="password" required placeholder="New password">
+            </section>
+
+            <button type="submit" class="btn-secondary full-width">Register New Account</button>
+        </form>
+    </section>
+
+</section>
+
+{{!-- error/success message --}}
+{{#if message}}
+    <section class="alert {{status}}" style="margin-top: 20px; text-align: center;">
+        {{message}}
+    </section>
+{{/if}}

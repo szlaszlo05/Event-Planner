@@ -1,0 +1,22 @@
+<nav class="main-navbar">
+    <div class="nav-brand">
+        <a href="/">Event Planner</a>
+    </div>
+
+    <div class="nav-links">
+        {{!-- Always show home --}}
+        <a href="/">All Events</a>
+
+        {{#if user}}
+            {{!-- Logged in user sees this --}}
+            <a href="/my-events">My Events</a>
+            <a href="/admin/create">Create Event</a>
+            
+            <span class="user-greeting">Hello, <strong>{{user.username}}</strong></span>
+            <a href="/auth/logout" class="btn-logout">Logout</a>
+        {{else}}
+            {{!-- Guest sees this --}}
+            <a href="/auth/login" class="btn-login">Login / Register</a>
+        {{/if}}
+    </div>
+</nav>

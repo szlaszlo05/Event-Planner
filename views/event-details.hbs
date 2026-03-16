@@ -1,0 +1,101 @@
+{{!-- single event template --}}
+
+{{#if message}}
+    <section class="alert {{status}}">
+        <p>{{message}}</p>
+    </section>
+{{/if}}
+
+<section id="ajax-message" class="alert" style="display:none;"></section>
+
+<h2>Event Details: {{event.Name}}</h2>
+
+<section class="event_details_section">
+    <p><strong>Location: </strong> {{event.Location}}</p>
+    <p><strong>Start: </strong> {{event.StartTime}}</p>
+    <p><strong>End: </strong> {{event.EndTime}}</p>
+    <p><strong>Event ID: </strong> {{event.EventID}}</p>
+</section>
+
+<hr>
+
+<section class="organizers_list_section">
+    <h3>Joined Organizers ({{event.organizers.length}})</h3>
+    {{#if event.organizers}}
+        <ul>
+            {{#each event.organizers}}
+                <li>{{Name}}</li>
+            {{/each}}
+        </ul>
+
+    {{else}}
+        <p>No organizers have joined yet.</p>
+    {{/if}}
+</section>
+
+<hr>
+
+<section class="pictures_section">
+    <h3>Photos ({{event.pictures.length}})</h3>
+    {{#if hasPictures}}
+        <section class="photo_gallery">
+            {{!-- asdasd --}}
+            {{#each event.pictures}} 
+            <section class="photo_item" id="pic-{{PictureID}}">
+                <img src="/pictures/{{ServerFileName}}" alt="{{OriginalName}}" style="max-width: 12rem">
+                <p>Uploaded By: {{UploadedBy}} on {{UploadDate}}</p>
+                {{#if canDelete}}
+                    <button class="delete-photo-button" data-id="{{PictureID}}">Delete</button>
+                {{/if}}
+            </section>
+            {{/each}}
+        </section>
+    {{else}}
+        <p>No pictures have been uploaded yet</p>
+    {{/if}}
+
+</section>
+
+<hr>
+
+<section class="forms_section">
+    <h3>Join/Leave Event</h3>
+    {{#if user}}
+        <form action="/api/events/organizers" method="post">
+            <input type="hidden" name="eventId" value="{{event.EventID}}">
+            {{#if isJoined}}
+                {{!-- Show leave button if logged in and joined --}}
+                <p>You are currently participating in this event as <strong>{{user.username}}</strong>.</p>
+                <input type="hidden" name="action" value="leave">
+                <button type="submit" class="btn-danger">Leave Event</button>
+            {{else}}
+                {{!-- Show join button if logged in and not joined --}}
+                <p>Join this event as <strong>{{user.username}}</strong>?</p>
+                <input type="hidden" name="action" value="join">
+                <button type="submit" class="btn-primary">Join Event</button>
+            {{/if}}
+        </form>
+    
+        <hr>
+
+        {{#if isJoined}}
+            <h3>Upload Photo</h3>
+            <form action="/api/events/pictures" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="eventId" value="{{event.EventID}}">
+                <p>Uploading as: <strong>{{user.username}}</strong></p>
+                <label for="pictureInput"></label>
+                <input type="file" name="picture" id="pictureInput" required> <br>
+                <button type="submit">Upload Picture</button>
+            </form>
+        {{else}}
+            <p><em>You must join the event to upload pictures.</em></p>
+        {{/if}}
+
+    {{else}}
+        <section class="alert warning">
+            <p>You must <a href="/auth/login">Login</a> to join this event or upload pictures.</p>
+        </section>
+    {{/if}}
+</section>
+
+<script src="/js/list-ajax.js"></script>
